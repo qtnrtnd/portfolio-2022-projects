@@ -1,0 +1,126 @@
+@font-face {
+    font-family: "Clash Display";
+    src: url("./fonts/ClashDisplay-Extralight.woff") format("woff2"),
+        url("./fonts/ClashDisplay-Extralight.woff2") format("woff");
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: "Neco";
+    src: url("./fonts/Neco-Italic.woff2") format("woff2"),
+        url("./fonts/Neco-Italic.woff") format("woff");
+    font-style: italic;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-size: 2rem;
+    background-color: black;
+    color: white;
+    position: relative;
+    user-select: none;
+}
+
+ol{
+    margin-top: -2.5rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ol.hovering li:not(:hover){
+    opacity: 0.4;
+}
+
+
+li{
+    transition: opacity .4s;
+    cursor: pointer;
+    display: flex;
+    height: 1.9em;
+    align-items: stretch;
+    position: relative;
+}
+
+.project-thumbnail{
+    position: absolute;
+    top: 50%;
+    pointer-events: none;
+    width: 9em;
+    height: 9em;
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), opacity .4s;
+    opacity: 0;
+    z-index: 1;
+}
+
+.thumbnail-img{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+li:hover .project-thumbnail{
+    opacity: 1;
+}
+
+.circum-thumbnail{
+    left: 100%;
+}
+
+.circum-thumbnail .thumbnail-img{
+    background-image: url(./img/circum.png);
+    transform: translate(2em, -30%);
+}
+
+a{
+    color: inherit;
+    text-decoration: none;
+    font-family: "Clash Display";
+    font-weight: 100;
+}
+
+a:visited{
+    color: inherit;
+}
+
+span{
+    font-family: "Neco";
+    font-size: 1.2em;
+}
+
+.progress-sticker{
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    height: 70%;
+    margin-left: -0.1em;
+    transform-origin: center;
+    transform: rotate(-5deg) translateY(-50%);
+    pointer-events: none;
+}
+
+.cursor{
+    mix-blend-mode: difference;
+    width: 1.4em;
+    height: 1.4em;
+    border-radius: 2.5em;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    transition-property: top, left;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+    z-index: 99;
+}
