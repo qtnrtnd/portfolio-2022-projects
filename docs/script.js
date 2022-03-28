@@ -27,3 +27,15 @@ document.addEventListener('mousemove', function (e) {
     cursor.style.top = e.clientY + "px";
     cursor.style.left = e.clientX + "px";
 });
+
+document.querySelectorAll('.social svg').forEach(a => {
+
+    a.addEventListener('mouseenter', function () {
+        cursor.classList.add('small');
+    });
+
+    a.addEventListener('mouseleave', function () {
+        cursor.classList.remove('small');
+
+    });
+})

@@ -6,6 +6,13 @@
 }
 
 @font-face {
+    font-family: "Clash Display";
+    src: url("./fonts/ClashDisplay-Regular.woff") format("woff2"),
+        url("./fonts/ClashDisplay-Regular.woff2") format("woff");
+    font-weight: 300;
+}
+
+@font-face {
     font-family: "Neco";
     src: url("./fonts/Neco-Italic.woff2") format("woff2"),
         url("./fonts/Neco-Italic.woff") format("woff");
@@ -15,23 +22,100 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    font-size: max(2.15vw, 1.5rem);
 }
 
 body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
-    overflow: hidden;
-    font-size: 2rem;
+    width: 100vw;
     background-color: black;
     color: white;
-    position: relative;
     user-select: none;
 }
 
+.overflow-wp{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid white;
+}
+
+header > *{
+    padding: 0.4em 0.8em;
+}
+
+.social{
+    display: flex;
+    align-items: center;
+    border-left: 1px solid white;
+}
+
+.social svg{
+    fill: white;
+    display: block;
+    transition: fill .4s;
+}
+
+.instagram svg{
+    height: 0.9em;
+}
+
+.instagram:hover svg{
+    fill: #fa95e4
+}
+
+.linkedin svg{
+    margin: 0 1em;
+    height: 0.9em;
+}
+
+.linkedin:hover svg{
+    fill: #7ed1ff;
+}
+
+.youtube svg{
+    height: 0.75em;
+}
+
+.youtube:hover svg{
+    fill: #ff8888;
+}
+
+h1{
+    font-family: "Clash Display";
+    font-size: inherit;
+    border-right: 1px solid white;
+    font-weight: 100;
+}
+
+h1 span{
+    font-weight: 300;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 0 5rem;
+    flex-flow: column;
+    flex: 1;
+}
+
 ol{
-    margin-top: -2.5rem;
+    margin-top:  -2em;
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -47,7 +131,7 @@ li{
     transition: opacity .4s;
     cursor: pointer;
     display: flex;
-    height: 1.9em;
+    min-height: 1.6em;
     align-items: stretch;
     position: relative;
 }
@@ -89,13 +173,14 @@ a{
     text-decoration: none;
     font-family: "Clash Display";
     font-weight: 100;
+    text-align: center;
 }
 
 a:visited{
     color: inherit;
 }
 
-span{
+ol span{
     font-family: "Neco";
     font-size: 1.2em;
 }
@@ -104,7 +189,7 @@ span{
     position: absolute;
     top: 50%;
     left: 100%;
-    height: 70%;
+    height: 1.32em;
     margin-left: -0.1em;
     transform-origin: center;
     transform: rotate(-5deg) translateY(-50%);
@@ -118,9 +203,13 @@ span{
     border-radius: 2.5em;
     position: absolute;
     transform: translate(-50%, -50%);
-    transition-property: top, left;
-    transition-duration: .5s;
-    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    transition: top .5s cubic-bezier(0.22, 1, 0.36, 1),
+    left .5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform .4s;
     pointer-events: none;
     z-index: 99;
+}
+
+.cursor.small{
+    transform: translate(-50%, -50%) scale(0);
 }
