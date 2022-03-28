@@ -69,7 +69,7 @@ header > *{
 }
 
 .instagram svg{
-    height: 0.9em;
+    height: 0.85em;
 }
 
 .instagram:hover svg{
@@ -78,7 +78,7 @@ header > *{
 
 .linkedin svg{
     margin: 0 1em;
-    height: 0.9em;
+    height: 0.85em;
 }
 
 .linkedin:hover svg{
