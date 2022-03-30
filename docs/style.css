@@ -135,7 +135,7 @@ main{
     justify-content: center;
     align-items: center;
     position: relative;
-    padding: 0 5rem;
+    padding: 0 calc(1.5 * var(--header-height));
     flex-flow: column;
     flex: 1;
 }
