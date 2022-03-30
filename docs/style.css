@@ -28,7 +28,7 @@
 :root{
     --header-height: 2.4em;
     --header-border-height: 1px;
-    font-size: max(1.8vw, 1rem);
+    font-size: max(1.8vw, 1.2rem);
 }
 
 body{
