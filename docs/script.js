@@ -81,20 +81,17 @@ document.addEventListener('touchmove', function (e) {
     const x = e.touches[0].clientX;
     const y = e.touches[0].clientY;
 
-    const elt = document.elementFromPoint(x, y);
+    const elt = document.elementFromPoint(x, y).closest(".hoverable");
 
     const currentHover = document.querySelector('.hover');
 
-    if (currentHover && !(currentHover === elt || currentHover.parentElement === elt)) {
+    if (currentHover && currentHover !== elt) {
         currentHover.classList.remove('hover');
         ol.classList.remove('nested-hover');
     }
 
-    if (elt.classList.contains("hoverable")) {
+    if (elt) {
         elt.classList.add("hover");
-        ol.classList.add('nested-hover');
-    } else if (elt.parentElement.classList.contains("hoverable")) {
-        elt.parentElement.classList.add("hover");
         ol.classList.add('nested-hover');
     }
 
