@@ -190,7 +190,7 @@ li span{
 }
 
 .circum-thumbnail .thumbnail-img{
-    background-image: url(./img/circum.png);
+    background-image: url(./img/circum.jpg);
     transform: translate(2em, 15%);
 }
 
@@ -200,7 +200,7 @@ li span{
 }
 
 .pokindex-thumbnail .thumbnail-img{
-    background-image: url(./img/pokindex2.jpg);
+    background-image: url(./img/pokindex.jpg);
     transform: translate(2em, 0%);
 }
 
