@@ -97,7 +97,7 @@ header > *{
     height: 0.82em;
 }
 
-.instagram:hover svg{
+.instagram:hover svg, .instagram.hover svg{
     fill: #fa95e4
 }
 
@@ -105,7 +105,7 @@ header > *{
     height: 0.82em;
 }
 
-.linkedin:hover svg{
+.linkedin:hover svg, .linkedin.hover svg{
     fill: #7ed1ff;
 }
 
@@ -113,7 +113,7 @@ header > *{
     height: 0.69em;
 }
 
-.youtube:hover svg{
+.youtube:hover svg, .youtube.hover svg{
     fill: #ff8888;
 }
 

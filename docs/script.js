@@ -1,5 +1,7 @@
 const ol = document.querySelector('ol');
 const cursor = document.querySelector('.cursor');
+const social = document.querySelector('.social');
+const isTouch = ('ontouchstart' in window);
 
 let showImages;
 
@@ -14,6 +16,17 @@ const moveHandler = function (e, elt, thumbnail) {
     let y = (e.offsetY - elt.offsetHeight / 2) / 4;
 
     thumbnail.style.transform = `translate3d(${-x}px, ${-y}px, 0)`;
+}
+
+const pointerLeaveHandler = function () {
+    document.querySelectorAll('.hover').forEach(elt => {
+        elt.classList.remove('hover')
+    });
+
+    ol.classList.remove('nested-hover');
+
+    cursor.classList.add('small');
+    cursor.classList.remove('small-hover');
 }
 
 document.querySelectorAll('li').forEach((li, i) => {
@@ -88,11 +101,13 @@ document.addEventListener('touchmove', function (e) {
     if (currentHover && currentHover !== elt) {
         currentHover.classList.remove('hover');
         ol.classList.remove('nested-hover');
+        cursor.classList.remove('small-hover');
     }
 
     if (elt) {
         elt.classList.add("hover");
-        ol.classList.add('nested-hover');
+        if (ol.contains(elt)) ol.classList.add('nested-hover');
+        else if(social.contains(elt)) cursor.classList.add('small-hover');
     }
 
     setCursorPos(x, y)
@@ -103,23 +118,23 @@ document.addEventListener('touchstart', function (e) {
     const x = e.touches[0].clientX;
     const y = e.touches[0].clientY;
 
+    cursor.style.transition = "none";
+
     setCursorPos(x, y);
+
+    cursor.offsetHeight;
+
+    cursor.style.removeProperty('transition');
 
     cursor.classList.remove('small');
     
 });
 
-document.addEventListener('touchend', function () {
+if (isTouch) {
+    document.addEventListener('click', pointerLeaveHandler);
+}
 
-    document.querySelectorAll('.hover').forEach(elt => {
-        elt.classList.remove('hover')
-    });
-
-    ol.classList.remove('nested-hover');
-
-    cursor.classList.add('small');
-    
-});
+document.addEventListener('touchend', pointerLeaveHandler);
 
 document.addEventListener('mousemove', function (e) {
 
