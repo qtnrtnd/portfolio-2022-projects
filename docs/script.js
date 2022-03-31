@@ -1,73 +1,144 @@
 const ol = document.querySelector('ol');
 const cursor = document.querySelector('.cursor');
 
-/*const maxViewportHeight = Math.max(window.screen.availHeight - (window.outerHeight - window.innerHeight), window.innerHeight);
-document.body.style.setProperty('--doc-min-height', maxViewportHeight + "px");*/
+let showImages;
 
-document.querySelectorAll('li').forEach(li => {
+const resizeHandler = function (thumbnail) {
+    if (ol.offsetLeft + ol.offsetWidth + thumbnail.offsetWidth < window.innerWidth) showImages = true;
+    else showImages = false;
+}
+
+const moveHandler = function (e, elt, thumbnail) {
+
+    let x = (e.offsetX - elt.offsetWidth / 2) / 24;
+    let y = (e.offsetY - elt.offsetHeight / 2) / 4;
+
+    thumbnail.style.transform = `translate3d(${-x}px, ${-y}px, 0)`;
+}
+
+document.querySelectorAll('li').forEach((li, i) => {
 
     const dataThumbnail = li.getAttribute('data-thumbnail');
     const thumbnail = document.querySelector(".project-thumbnail[data-thumbnail='" + dataThumbnail + "']");
-    //const rightSide = dataThumbnail % 2 === 0;
 
-    const moveHandler = function (e, that) {
-
-        let elt = that ? that : this;
-
-        let x = (e.offsetX - elt.offsetWidth / 2) / 24;
-        let y = (e.offsetY - elt.offsetHeight / 2) / 4;
-
-        thumbnail.style.transform = `translate3d(${-x}px, ${-y}px, 0)`;
+    const moveHandlerRef = function (e) {
+        moveHandler(e, this, thumbnail);
     }
 
+    if (i === 0) {
+        resizeHandler(thumbnail);
+        window.addEventListener('resize', function () {
+            resizeHandler(thumbnail)
+        }); 
+    }
+    
     li.addEventListener('mouseenter', function (e) {
 
-        thumbnail.style.transition = "none";
+        if (showImages) {
 
-        moveHandler(e, this);
+            thumbnail.style.transition = "none";
 
-        thumbnail.offsetHeight;
+            moveHandlerRef(e);
 
-        thumbnail.style.removeProperty("transition");
+            thumbnail.offsetHeight;
 
-        li.addEventListener('mousemove', moveHandler);
+            thumbnail.style.removeProperty("transition");
 
-        //if (rightSide) {
+            li.addEventListener('mousemove', moveHandlerRef);
+
             thumbnail.style.left = this.offsetLeft + this.offsetWidth + "px";
-        /*} else {
-            thumbnail.style.left = this.offsetLeft - thumbnail.offsetWidth + "px";
-        }*/
 
-        thumbnail.style.top = this.offsetTop + this.offsetHeight / 2 - thumbnail.offsetHeight / 2  + "px";
+            thumbnail.style.top = this.offsetTop + this.offsetHeight / 2 - thumbnail.offsetHeight / 2  + "px";
 
-        ol.classList.add('hovering');
-        thumbnail.classList.add('visible');
+            thumbnail.classList.add('visible');
+        }
+
+        ol.classList.add('nested-hover');
 
     });
 
     li.addEventListener('mouseleave', function () {
 
-        li.removeEventListener('mousemove', moveHandler);
-        ol.classList.remove('hovering');
-        thumbnail.classList.remove('visible');
+        if (showImages) {
+
+            li.removeEventListener('mousemove', moveHandlerRef);
+            thumbnail.classList.remove('visible');
+        }
+
+        ol.classList.remove('nested-hover');
 
     });
 
 });
 
+const setCursorPos = function (x, y) {
+    cursor.style.top = y + "px";
+    cursor.style.left = x + "px";
+}
+
+document.addEventListener('touchmove', function (e) {
+
+    const x = e.touches[0].clientX;
+    const y = e.touches[0].clientY;
+
+    const elt = document.elementFromPoint(x, y);
+
+    const currentHover = document.querySelector('.hover');
+
+    if (currentHover && !(currentHover === elt || currentHover.parentElement === elt)) {
+        currentHover.classList.remove('hover');
+        ol.classList.remove('nested-hover');
+    }
+
+    if (elt.classList.contains("hoverable")) {
+        elt.classList.add("hover");
+        ol.classList.add('nested-hover');
+    } else if (elt.parentElement.classList.contains("hoverable")) {
+        elt.parentElement.classList.add("hover");
+        ol.classList.add('nested-hover');
+    }
+
+    setCursorPos(x, y)
+});
+
+document.addEventListener('touchstart', function (e) {
+
+    const x = e.touches[0].clientX;
+    const y = e.touches[0].clientY;
+
+    setCursorPos(x, y);
+
+    cursor.classList.remove('small');
+    
+});
+
+document.addEventListener('touchend', function () {
+
+    document.querySelectorAll('.hover').forEach(elt => {
+        elt.classList.remove('hover')
+    });
+
+    ol.classList.remove('nested-hover');
+
+    cursor.classList.add('small');
+    
+});
+
 document.addEventListener('mousemove', function (e) {
-    cursor.style.top = e.clientY + "px";
-    cursor.style.left = e.clientX + "px";
+
+    if (cursor.classList.contains('small') && !cursor.classList.contains('small-hover')) cursor.classList.remove('small');
+
+    setCursorPos(e.clientX, e.clientY)
 });
 
 document.querySelectorAll('.social svg').forEach(a => {
 
     a.addEventListener('mouseenter', function () {
-        cursor.classList.add('small');
+        cursor.classList.add('small-hover');
     });
 
     a.addEventListener('mouseleave', function () {
-        cursor.classList.remove('small');
+        cursor.classList.remove('small-hover');
 
     });
 })

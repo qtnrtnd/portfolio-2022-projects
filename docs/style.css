@@ -37,7 +37,8 @@ body{
     user-select: none;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    overflow-y: scroll; 
+    overflow-y: scroll;
+    -webkit-tap-highlight-color: transparent;
 }  
 
 body::-webkit-scrollbar {
@@ -148,10 +149,9 @@ ol{
     position: relative;
 }
 
-ol.hovering li:not(:hover){
+ol.nested-hover li:not(:hover):not(.hover){
     opacity: 0.4;
 }
-
 
 li{
     transition: opacity .4s;
@@ -159,6 +159,10 @@ li{
     display: flex;
     align-items: stretch;
     line-height: 1.44;
+}
+
+li span{
+    pointer-events: none;
 }
 
 .project-thumbnail{
@@ -284,6 +288,6 @@ footer p{
     animation: rotate 7s infinite linear;
 }
 
-.cursor.small{
+.cursor.small, .cursor.small-hover{
     transform: translate(-50%, -50%) scale(0);
 }
