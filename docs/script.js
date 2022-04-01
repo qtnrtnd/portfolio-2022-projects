@@ -10,12 +10,20 @@ const resizeHandler = function (thumbnail) {
     else showImages = false;
 }
 
-const moveHandler = function (e, elt, thumbnail) {
+const moveHandler = function (e, elt, thumbnail, moveThumbnailWithoutTransition = false) {
 
     let x = (e.offsetX - elt.offsetWidth / 2) / 24;
     let y = (e.offsetY - elt.offsetHeight / 2) / 4;
 
-    thumbnail.style.transform = `translate3d(${-x}px, ${-y}px, 0)`;
+    if (moveThumbnailWithoutTransition) {
+
+        thumbnail.style.transition = "none";
+        thumbnail.style.transform = `translate3d(${-x}px, ${-y}px, 0)`;
+        thumbnail.offsetHeight;
+        thumbnail.style.removeProperty("transition");
+
+    } else thumbnail.style.transform = `translate3d(${-x}px, ${-y}px, 0)`;
+    
 }
 
 const pointerLeaveHandler = function () {
@@ -49,13 +57,7 @@ document.querySelectorAll('li').forEach((li, i) => {
 
         if (showImages) {
 
-            thumbnail.style.transition = "none";
-
-            moveHandlerRef(e);
-
-            thumbnail.offsetHeight;
-
-            thumbnail.style.removeProperty("transition");
+            moveHandler(e, this, thumbnail, true);
 
             li.addEventListener('mousemove', moveHandlerRef);
 
