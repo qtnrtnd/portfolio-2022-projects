@@ -199,6 +199,11 @@ li span{
     transform: translate(2em, 0%);
 }
 
+.upstar-thumbnail .thumbnail-img{
+    background-image: url(./img/upstar.jpg);
+    transform: translate(2em, 0%);
+}
+
 .pokindex-thumbnail .thumbnail-img{
     background-image: url(./img/pokindex.jpg);
     transform: translate(2em, 0%);
@@ -218,6 +223,7 @@ li span{
     background-image: url(./img/soundtidy.jpg);
     transform: translate(2em, -15%);
 }
+
 
 a{
     color: inherit;
